@@ -3,8 +3,8 @@ import sys, os
 sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
 import numpy as np
 import pickle
-from dataset.mnist import load_mnist
-from common.functions import sigmoid, softmax
+from dataset.mnist import load_mnist # from dataset/mnist.py
+from common.functions import sigmoid, softmax # from common/functions.py
 
 
 def get_data():
@@ -12,22 +12,28 @@ def get_data():
     return x_test, t_test
 
 
+''' init_network()会读入保存在pickle文件sample_weight.pkl中的学习到的
+权重参数A。这个文件中以字典变量的形式保存了权重和偏置参数。
+'''
 def init_network():
-    with open("sample_weight.pkl", 'rb') as f:
-        network = pickle.load(f)
+    with open("row_code/ch03/sample_weight.pkl", 'rb') as f: # 'rb'表示以二进制格式读取
+        network = pickle.load(f) # pickle.load()函数从文件中读取数据并返回
     return network
 
 
 def predict(network, x):
-    W1, W2, W3 = network['W1'], network['W2'], network['W3']
-    b1, b2, b3 = network['b1'], network['b2'], network['b3']
+    W1, W2, W3 = network['W1'], network['W2'], network['W3'] # 获取权重参数
+    b1, b2, b3 = network['b1'], network['b2'], network['b3'] # 获取偏置参数
 
-    a1 = np.dot(x, W1) + b1
-    z1 = sigmoid(a1)
+    # 第一层
+    a1 = np.dot(x, W1) + b1 # 计算第一层的加权和
+    z1 = sigmoid(a1) # 计算第一层的激活值
+    # 第二层
     a2 = np.dot(z1, W2) + b2
     z2 = sigmoid(a2)
-    a3 = np.dot(z2, W3) + b3
-    y = softmax(a3)
+    # 输出层
+    a3 = np.dot(z2, W3) + b3 # 计算输出层的加权和
+    y = softmax(a3) # 计算输出层的激活值
 
     return y
 
