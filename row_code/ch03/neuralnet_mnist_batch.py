@@ -1,4 +1,3 @@
-# coding: utf-8
 import sys, os
 sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
 import numpy as np
@@ -13,7 +12,7 @@ def get_data():
 
 
 def init_network():
-    with open("sample_weight.pkl", 'rb') as f:
+    with open("row_code/ch03/sample_weight.pkl", 'rb') as f:
         network = pickle.load(f)
     return network
 
@@ -35,13 +34,15 @@ def predict(network, x):
 x, t = get_data()
 network = init_network()
 
+# 加入批处理,使用批处理来提高预测效率
 batch_size = 100 # 批数量
 accuracy_cnt = 0
 
-for i in range(0, len(x), batch_size):
-    x_batch = x[i:i+batch_size]
-    y_batch = predict(network, x_batch)
-    p = np.argmax(y_batch, axis=1)
-    accuracy_cnt += np.sum(p == t[i:i+batch_size])
+for i in range(0, len(x), batch_size): # batch_size为每次处理的样本数量
+    x_batch = x[i:i+batch_size] # 获取当前批次的样本
+    y_batch = predict(network, x_batch) # 对当前批次的样本进行预测
+    #矩阵的第0维是列方向,第1维是行方向
+    p = np.argmax(y_batch, axis=1) # 获取每个样本预测的标签,axis=1表示沿着行的方向获取最大值的索引
+    accuracy_cnt += np.sum(p == t[i:i+batch_size]) # 统计当前批次预测正确的样本数量
 
 print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
