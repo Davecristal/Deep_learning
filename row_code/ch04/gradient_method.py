@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pylab as plt
 from gradient_2d import numerical_gradient
 
-
+# 梯度下降法
 def gradient_descent(f, init_x, lr=0.01, step_num=100):
     x = init_x
     x_history = []
@@ -20,7 +20,7 @@ def gradient_descent(f, init_x, lr=0.01, step_num=100):
 def function_2(x):
     return x[0]**2 + x[1]**2
 
-init_x = np.array([-3.0, 4.0])    
+init_x = np.array([-3.0, 4.0]) # 初始点
 
 lr = 0.1
 step_num = 20

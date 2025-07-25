@@ -9,6 +9,12 @@ class TwoLayerNet:
 
     def __init__(self, input_size, hidden_size, output_size, weight_init_std=0.01):
         # 初始化权重
+        '''
+        params
+        保存神经网络的参数的字典型变量（实例变量）。
+        params['W1']是第1层的权重, params['b1']是第1层的偏置。
+        params['W2']是第2层的权重, params['b2']是第2层的偏置
+        '''
         self.params = {}
         self.params['W1'] = weight_init_std * np.random.randn(input_size, hidden_size)
         self.params['b1'] = np.zeros(hidden_size)
@@ -44,6 +50,12 @@ class TwoLayerNet:
     def numerical_gradient(self, x, t):
         loss_W = lambda W: self.loss(x, t)
         
+        '''
+        grads
+        保存梯度的字典型变量(numerical_gradient()方法的返回值)。
+        grads['W1']是第1层权重的梯度, grads['b1']是第1层偏置的梯度。
+        grads['W2']是第2层权重的梯度, grads['b2']是第2层偏置的梯度
+        '''
         grads = {}
         grads['W1'] = numerical_gradient(loss_W, self.params['W1'])
         grads['b1'] = numerical_gradient(loss_W, self.params['b1'])
@@ -76,3 +88,4 @@ class TwoLayerNet:
         grads['b1'] = np.sum(dz1, axis=0)
 
         return grads
+    

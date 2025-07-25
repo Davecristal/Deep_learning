@@ -8,7 +8,7 @@ from common.gradient import numerical_gradient
 
 class simpleNet:
     def __init__(self):
-        self.W = np.random.randn(2,3)
+        self.W = np.random.randn(2,3) # 2行3列的权重矩阵
 
     def predict(self, x):
         return np.dot(x, self.W)
@@ -16,7 +16,7 @@ class simpleNet:
     def loss(self, x, t):
         z = self.predict(x)
         y = softmax(z)
-        loss = cross_entropy_error(y, t)
+        loss = cross_entropy_error(y, t) # 计算交叉熵损失
 
         return loss
 
@@ -25,7 +25,7 @@ t = np.array([0, 0, 1])
 
 net = simpleNet()
 
-f = lambda w: net.loss(x, t)
-dW = numerical_gradient(f, net.W)
+f = lambda w: net.loss(x, t) # 损失函数
+dW = numerical_gradient(f, net.W) # 计算梯度, net.W是权重矩阵
 
 print(dW)

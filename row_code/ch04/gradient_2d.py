@@ -7,7 +7,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 def _numerical_gradient_no_batch(f, x):
     h = 1e-4 # 0.0001
-    grad = np.zeros_like(x)
+    grad = np.zeros_like(x) # 初始化梯度为零，生成与x的形状相同的数组
     
     for idx in range(x.size):
         tmp_val = x[idx]
@@ -23,6 +23,7 @@ def _numerical_gradient_no_batch(f, x):
     return grad
 
 
+# 主函数，用于计算梯度
 def numerical_gradient(f, X):
     if X.ndim == 1:
         return _numerical_gradient_no_batch(f, X)
@@ -42,6 +43,7 @@ def function_2(x):
         return np.sum(x**2, axis=1)
 
 
+# 绘制梯度场
 def tangent_line(f, x):
     d = numerical_gradient(f, x)
     print(d)
@@ -59,12 +61,13 @@ if __name__ == '__main__':
     grad = numerical_gradient(function_2, np.array([X, Y]) )
     
     plt.figure()
-    plt.quiver(X, Y, -grad[0], -grad[1],  angles="xy",color="#666666")#,headwidth=10,scale=40,color="#444444")
+    plt.quiver(X, Y, -grad[0], -grad[1],  angles="xy",color="#444444")
     plt.xlim([-2, 2])
     plt.ylim([-2, 2])
+    plt.title('Gradient Field of function_2 = x² + y²')
     plt.xlabel('x0')
     plt.ylabel('x1')
-    plt.grid()
-    plt.legend()
+    plt.grid() # 网格线
+    plt.legend() # 图例
     plt.draw()
     plt.show()

@@ -23,7 +23,7 @@ y = function_1(x)
 plt.xlabel("x")
 plt.ylabel("f(x)")
 
-tf = tangent_line(function_1, 5)
+tf = tangent_line(function_1, 5) # 在x=5处的导数, 切线
 y2 = tf(x)
 
 plt.plot(x, y)
