@@ -20,6 +20,7 @@ def tangent_line(f, x):
      
 x = np.arange(0.0, 20.0, 0.1)
 y = function_1(x)
+plt.title("tangent line")
 plt.xlabel("x")
 plt.ylabel("f(x)")
 
